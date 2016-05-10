@@ -36,6 +36,11 @@
   vertical-align: middle;
   /*margin: 0 16px;*/
 }
+.md-switch label.with-text .lever {
+  margin-right: 10px;
+  margin: 0 16px;
+}
+
 .md-switch label .lever:after {
   content: "";
   position: absolute;
