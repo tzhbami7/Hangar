@@ -11,11 +11,11 @@
     <div class="btn-group pull-right" style="margin-top: 20px;margin-bottom: 10px;">
       <div class="btn-group">
         {% if session.su == 'Yes' %}
-          <a class="btn btn-small btn-danger" data-toggle="modal" data-target="#reboot"><i class="glyphicon glyphicon-off icon-white"></i>  Reboot</a>
+          <a class="btn btn-small btn-danger" data-toggle="modal" data-target="#reboot"><i class="fa fa-refresh"></i>  Reboot</a>
           {% if containers != [] %}
-            <a class="btn btn-small btn-warning" data-toggle="modal" data-target="#cloneCT"> <i class="glyphicon glyphicon-repeat icon-white"></i>  Clone <abbr title="Container">CT</abbr></a>
+            <a class="btn btn-small btn-warning" data-toggle="modal" data-target="#cloneCT"> <i class="fa fa-clone"></i>  Clone <abbr title="Container">CT</abbr></a>
           {% endif %}
-          <a class="btn btn-small btn-success" data-toggle="modal" data-target="#createCT"><i class="glyphicon glyphicon-plus-sign icon-white"></i>  Create <abbr title="Container">CT</abbr></a>
+          <a class="btn btn-small btn-success" data-toggle="modal" data-target="#createCT"><i class="fa fa-plus"></i>  Create <abbr title="Container">CT</abbr></a>
         {% endif %}
       </div>
     </div>
