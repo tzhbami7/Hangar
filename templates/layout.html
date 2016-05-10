@@ -14,6 +14,9 @@
     <link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/shadow.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/table.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/label.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/switch.css') }}" rel="stylesheet">
 
     <!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet"> -->
@@ -22,17 +25,20 @@
 
     <style type="text/css">
       body { padding-top: 50px; background-color: #fafafa; font-family: 'Roboto', sans-serif;}
-      html, body, .container-fluid, .container-fluid .row:first-of-type {
+      html {
         height: 100%;
+      }
+      body {
+        min-height: 100%;
       }
       h3.head {margin: 0;}
       h3.head-networking, .switch-networking{display:inline-block;}
       .switch-networking{position:relative;top:-5px;margin-left:17px;}
       .sidebar-nav {padding: 9px 0;}
-      .table td{vertical-align: middle; padding:0px 8px;text-align: center;}
       .hero-unit{padding: 5px 30px;}
       .help-block ul{margin:0 0 -10px 0;}
       .help-block li{list-style-type:none;}
+      .btn-action {color: rgba(0,0,0,0.54);}
       .fix-height {line-height: 30px; min-height: 30px; height: 30px;}
 }
     </style>
