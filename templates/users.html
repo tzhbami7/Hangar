@@ -1,57 +1,71 @@
 {% extends "layout.html" %}
 {% block title %}Users{% endblock %}
 {% block content %}
-<div class="col-md-7">
+<div class="col-md-9">
   {{ super() }}
-  <div class="accordion" id="accordion2">
-    {% for user in users %}
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a type="button" class="btn btn-danger delete btn-mini pull-right{% if (su_users.num < 2 and user.su == 'Yes') or nb_users.num <= 1 %} disabled{% endif %}" data-userid="{{ user.id }}" data-username="{{ user.username }}" style="margin: 7px 7px 0 0;"><i class="fa fa-trash icon-white"></i> Delete</a>
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ user.username }}">
-            {% if user.name %}{{ user.name }} ({{ user.username }}){% else %}{{ user.username }}{% endif %}
-          </a>
-        </div>
-        <div id="{{ user.username }}" class="accordion-body collapse{% if session.username == user.username %} in{% endif %}">
-          <div class="accordion-inner">
-            <form class="form-inline" method="post" id="editUser">
-              <input type="hidden" name="username" value="{{ user.username }}">
-              <input class="form-control" type="text" name="name" value="{{ user.name }}" pattern="[a-z A-Z0-9]{3,32}" placeholder="Name">
-              <div class="form-group">
+
+  <div class="page-header">
+    <h3>Users</h3>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Panel title</h3>
+    </div>
+    <form class="form-inline" method="post" id="editUser">
+      <table class="table table-material">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Admin?</th>
+            <th>Password</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>
+                {{ user.username }}
+                <input type="hidden" name="username" value="{{ user.username }}">
+                <input type="hidden" name="newUser" value="False">
+              </td>
+              <td>
+                <input class="form-control" type="text" name="name" value="{{ user.name }}" pattern="[a-z A-Z0-9]{3,32}" placeholder="Name">
+              </td>
+              <td>
                 <div class="md-switch">
                   <label>
-                    Off
-                    <input type="checkbox">
+                    <input type="checkbox" value="Yes"{% if user.su == 'Yes' %} checked{% endif %}{% if (su_users.num < 2) and (user.su == 'Yes') %} disabled{% endif %}>
                     <span class="lever"></span>
-                    On
                   </label>
                 </div>
-              </div>
-              <div class="switch switch-small" data-on="success" data-on-label="<i class='icon-star icon-white'></i>" data-off-label="<i class='icon-user'></i>">
-                <input type="checkbox" name="su" value="Yes"{% if user.su == 'Yes' %} checked{% endif %}{% if (su_users.num < 2) and (user.su == 'Yes') %} disabled{% endif %}>
-              </div>
-
-              <br /> <br />
-
-              <input class="form-control" type="password" name="password1" id="password1-{{ user.id }}" placeholder="Password">
-              <input class="form-control" type="password" name="password2" placeholder="Re-type">
-              <input class="form-control" type="hidden" name="newUser" value="False">
-              <button type="submit" class="btn">Update</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    {% endfor %}
+              </td>
+              <td>
+                <input class="form-control" type="password" name="password1" id="password1-{{ user.id }}" placeholder="Password">
+                <input class="form-control" type="password" name="password2" placeholder="Re-type">
+              </td>
+              <td>
+                <button type="submit" class="btn btn-link btn-action"><i class="fa fa-check"></i></button>
+                <a type="button" class="btn delete btn-link btn-action{% if (su_users.num < 2 and user.su == 'Yes') or nb_users.num <= 1 %} disabled{% endif %}" data-userid="{{ user.id }}" data-username="{{ user.username }}"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
   </div>
 </div>
+
 <div class="col-md-2">
-  <a class="btn btn-success btn-block" data-toggle="modal" data-target="#newUser"><i class="fa fa-plus icon-white"></i> New user</a>
+  <a class="btn btn-success btn-block" data-toggle="modal" data-target="#newUser"><i class="fa fa-plus"></i> New user</a>
 </div>
+
 {% include "includes/modal_new_user.html" %}
 {% if nb_users.num > 1 %}{% include "includes/modal_delete.html" %}{% endif %}
 {% endblock %}
 {% block script %}
-  <script src="{{ url_for('static', filename='js/bootstrapSwitch.js') }}"></script>
   {% if nb_users.num > 1 %}
     <script type="text/javascript">
       var token = '{{ session.token }}';
