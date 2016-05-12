@@ -1,15 +1,23 @@
 {% extends "layout.html" %}
 {% block title %}Networking{% endblock %}
 {% block content %}
-<div class="col-md-10">
+
+<div class="col-md-10" style="background-color: #E0E0E0; height: 72px;">
+  <ol class="breadcrumb breadcrumb-md">
+    <li><a href="{{ url_for('home') }}">Overview</a></li>
+    <li class="active">Networking</li>
+  </ol>
+</div>
+
+<div class="col-md-8 col-md-offset-1">
   {{ super() }}
-  <div class="page-header">
-    <h2>LXC Network</h2>
+  <div class="page-header page-header-md">
+    <h4>LXC Network</h4>
   </div>
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <!-- <div class="panel-heading">
       <h3 class="panel-title">Panel title</h3>
-    </div>
+    </div> -->
     <div class="panel-body">
       <form id="config" class="form-horizontal" action="{{ url_for('lxc_net') }}" method="post">
         <div class="form-group switch-networking">
@@ -23,59 +31,60 @@
             </div>
           </div>
         </div>
-
+        <hr>
         {% if running != [] %}<h4 class="text-error">Please, stop all containers before restarting lxc-net.</h4><br />{% endif %}
 
 
         <div class="lxc-net">
           <div class="form-group">
-            <label class="control-label col-md-2" for="inputBridge">Bridge name</label>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-2">
+              <label class="control-label" for="inputBridge">Bridge name</label>
               <input class="form-control" pattern="[a-zA-Z0-9_-]+" type="text" id="inputBridge" name="bridge" value="{{ cfg.bridge }}"{% if running != [] %} disabled{% endif %}>
               <span class="help-block"><small>(e.g lxcbr0)</small></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label col-md-2" for="inputGateway">IP Address</label>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-2">
+              <label class="control-label" for="inputGateway">IP Address</label>
               <input class="form-control" pattern="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" type="text" id="inputGateway" name="address" value="{{ cfg.address }}"{% if running != [] %} disabled{% endif %}>
               <span class="help-block"><small>(e.g 10.0.3.1)</small></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label col-md-2" for="inputNetmask">Netmask</label>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-2">
+              <label class="control-label" for="inputNetmask">Netmask</label>
               <input class="form-control" pattern="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" type="text" id="inputNetmask" name="netmask" value="{{ cfg.netmask }}"{% if running != [] %} disabled{% endif %}>
               <span class="help-block"><small>(e.g 255.255.255.0)</small></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label col-md-2" for="inputNetwork">Network</label>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-2">
+              <label class="control-label" for="inputNetwork">Network</label>
               <input class="form-control" pattern="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:/\d{1,2}|)" type="text" id="inputNetwork" name="network" value="{{ cfg.network }}"{% if running != [] %} disabled{% endif %}>
               <span class="help-block"><small>(e.g 10.0.3.0/24)</small></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label col-md-2" for="inputDHCPRange">DHCP Range</label>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-2">
+              <label class="control-label" for="inputDHCPRange">DHCP Range</label>
               <input class="form-control" pattern="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\,(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" type="text" id="inputDHCPRange" name="range" value="{{ cfg.range }}"{% if running != [] %} disabled{% endif %}>
               <span class="help-block"><small>(e.g 10.0.3.2,10.0.3.254)</small></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label col-md-2" for="inputDHCPMax">DHCP Max</label>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-2">
+              <label class="control-label" for="inputDHCPMax">DHCP Max</label>
               <input class="form-control" pattern="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" type="text" id="inputDHCPMax" name="max" value="{{ cfg.max }}"{% if running != [] %} disabled{% endif %}>
               <span class="help-block"><small>(e.g 253)</small></span>
             </div>
           </div>
         </div>
+        <hr>
         <div class="form-group">
           <div class="col-md-10 col-md-offset-2">
             <button class="btn btn-success" name="submit" value="apply" type="submit"{% if running != [] %} disabled{% endif %}><i class="fa fa-check icon-white"></i> Apply</button>

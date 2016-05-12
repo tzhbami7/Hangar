@@ -16,6 +16,10 @@
   color: #009688;
 }
 
+.nav-sidebar > li:hover > a > i {
+  color: #009688;
+}
+
 .subheader {
   font-weight: bold;
   color: rgba(0,0,0,0.54);

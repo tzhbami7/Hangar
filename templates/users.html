@@ -1,17 +1,24 @@
 {% extends "layout.html" %}
 {% block title %}Users{% endblock %}
 {% block content %}
-<div class="col-md-9">
+<div class="col-md-10" style="background-color: #E0E0E0; height: 72px;">
+  <ol class="breadcrumb breadcrumb-md">
+    <li><a href="{{ url_for('home') }}">Overview</a></li>
+    <li class="active">Users</li>
+  </ol>
+</div>
+
+<div class="col-md-8 col-md-offset-1">
   {{ super() }}
 
-  <div class="page-header">
-    <h3>Users</h3>
+  <div class="page-header page-header-md">
+    <h4>Users</h4>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <!-- <div class="panel-heading">
       <h3 class="panel-title">Panel title</h3>
-    </div>
+    </div> -->
     <form class="form-inline" method="post" id="editUser">
       <table class="table table-material">
         <thead>

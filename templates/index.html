@@ -4,26 +4,32 @@
 {% extends "layout.html" %}
 {% block title %}Overview{% endblock %}
 {% block content %}
-<div class="col-md-10">
+<div class="col-md-10" style="background-color: #E0E0E0; height: 72px;">
+  <ol class="breadcrumb breadcrumb-md">
+    <li class="active">Overview</li>
+  </ol>
+</div>
+
+<div class="col-md-8 col-md-offset-1">
   {{ super() }}
-  <div class="page-header clearfix">
+  <div class="page-header page-header-md clearfix">
     <h3 class="pull-left">{{ dist }} (host)</h3>
     <div class="btn-group pull-right" style="margin-top: 20px;margin-bottom: 10px;">
       <div class="btn-group">
         {% if session.su == 'Yes' %}
-          <a class="btn btn-small btn-danger" data-toggle="modal" data-target="#reboot"><i class="fa fa-refresh"></i>  Reboot</a>
+          <a class="btn btn-link md-action" data-toggle="modal" data-target="#reboot"><i class="fa fa-refresh"></i></a>
           {% if containers != [] %}
-            <a class="btn btn-small btn-warning" data-toggle="modal" data-target="#cloneCT"> <i class="fa fa-clone"></i>  Clone <abbr title="Container">CT</abbr></a>
+            <a class="btn btn-link md-action" data-toggle="modal" data-target="#cloneCT"> <i class="fa fa-clone"></i></a>
           {% endif %}
-          <a class="btn btn-small btn-success" data-toggle="modal" data-target="#createCT"><i class="fa fa-plus"></i>  Create <abbr title="Container">CT</abbr></a>
+          <a class="btn btn-link md-action" data-toggle="modal" data-target="#createCT"><i class="fa fa-plus"></i></a>
         {% endif %}
       </div>
     </div>
   </div>
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <!-- <div class="panel-heading">
       <h3 class="panel-title">Panel title</h3>
-    </div>
+    </div> -->
     <div class="panel-body">
       {% if dist == 'Unknown' %}<div class="alert alert-error">LXC Web Panel is optimized for Ubuntu 12.10 !</div>{% endif %}
       <div class="col-md-6 col-sm-6">
@@ -49,9 +55,9 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <!-- <div class="panel-heading">
       <h3 class="panel-title">Containers</h3>
-    </div>
+    </div> -->
     <table class="table table-material">
       <thead>
         <tr>
