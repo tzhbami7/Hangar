@@ -1,45 +1,58 @@
 {% extends "layout.html" %}
 {% block title %}About{% endblock %}
 {% block content %}
-<div class="span9">
-	{{ super() }}
-	<h2>LXC Web Panel <small class="muted">Version : {{ version.current }}</small></h2>
-	<br />
-	<h4>Credits</h4>
+  <div class="col-md-10 col-md-offset-2">
+    <div class="row">
 
-	<address>
-		<strong><a href="http://googley.fr/" target="_blank">&Eacute;lie Deloumeau</a></strong><br>
-		Project creator<br>
-		Back end developer<br>
-	</address>
+      <div class="col-md-12" style="background-color: #E0E0E0; height: 72px;">
+        <ol class="breadcrumb breadcrumb-md">
+          <li><a href="{{ url_for('home') }}">Overview</a></li>
+          <li class="active">Networking</li>
+        </ol>
+      </div>
 
-	<address>
-		<strong><a href="http://www.antoine-tanzilli.fr/" target="_blank">Antoine Tanzilli</a></strong><br>
-		Front end developer<br>
-	</address>
+      <div class="col-md-12">
+        {{ super() }}
+      </div>
 
-	<hr>
+      <div class="col-md-8 col-md-offset-1">
+        <div class="page-header page-header-md">
+          <h4>Hangar <small class="muted">Version : {{ version.current }}</small></h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h4>Credits</h4>
 
-	<h4>Contributors</h4>
+            <address>
+              <strong><a href="http://kern-fusion.ch/" target="_blank">Fusion Robot</a></strong><br>
+              Project creator
+            </address>
 
-	<strong><a href="https://github.com/dz0ny">Janez Troha</a></strong>
-	<br />
-	<strong><a href="https://github.com/mkobel">Moritz Kobel</a></strong>
-	<br />
-	<strong><a href="https://github.com/AlexFinn">Alexander Ivanov</a></strong>
-	<br />
-	<strong><a href="https://github.com/sergey-dryabzhinsky">Sergey Dryabzhinsky</a></strong>
+            <address>
+              <strong><a href="https://github.com/tzhbami7" target="_blank">Michael Balsiger</a></strong><br>
+              Front end / Back end developer<br>
+            </address>
 
-	<hr>
+            <hr>
 
-	<h4>The MIT License (MIT)</h4>
-	<h5>Copyright (c) 2013 Antoine TANZILLI, &Eacute;lie DELOUMEAU</h5>
+            <h4>Fork</h4>
 
-	<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+            <strong><a href="https://lxc-webpanel.github.io/">LXC-Web-Panel</a></strong>
 
-	<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+            <hr>
 
-	<p class="muted"><small>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</small></p>
-</div>
+            <h4>The MIT License (MIT)</h4>
+            <h5>Copyright (c) 2016 Kollektiv Kunz &amp Co - Fusion Robot. Fusion Robot product / service of Kollektiv Kunz &amp Co</h5>
 
+            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+            <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+            <p class="muted"><small>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</small></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 {% endblock %}
