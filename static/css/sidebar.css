@@ -1,3 +1,12 @@
+.sidebar-md {
+  position: fixed;
+  background-color: #fff;
+  bottom: 0px;
+  top: 64px;
+}
+
+.sidebar-nav { padding: 9px 0; }
+
 .nav-sidebar > li > a {
   padding: 7px 0px;
   color: rgba(0,0,0,0.87);

@@ -4,94 +4,102 @@
 {% extends "layout.html" %}
 {% block title %}Overview{% endblock %}
 {% block content %}
-<div class="col-md-10" style="background-color: #E0E0E0; height: 72px;">
-  <ol class="breadcrumb breadcrumb-md">
-    <li class="active">Overview</li>
-  </ol>
-</div>
+<div class="col-md-10 col-md-offset-2">
+  <div class="row">
 
-<div class="col-md-8 col-md-offset-1">
-  {{ super() }}
-  <div class="page-header page-header-md clearfix">
-    <h3 class="pull-left">{{ dist }} (host)</h3>
-    <div class="btn-group pull-right" style="margin-top: 20px;margin-bottom: 10px;">
-      <div class="btn-group">
-        {% if session.su == 'Yes' %}
-          <a class="btn btn-link md-action" data-toggle="modal" data-target="#reboot"><i class="fa fa-refresh"></i></a>
-          {% if containers != [] %}
-            <a class="btn btn-link md-action" data-toggle="modal" data-target="#cloneCT"> <i class="fa fa-clone"></i></a>
+    <div class="col-md-12" style="background-color: #E0E0E0; height: 72px;">
+      <ol class="breadcrumb breadcrumb-md">
+        <li class="active">Overview</li>
+      </ol>
+    </div>
+
+    <div class="col-md-12">
+      {{ super() }}
+    </div>
+
+    <div class="col-md-8 col-md-offset-1">
+      <div class="page-header page-header-md clearfix">
+        <h4 class="pull-left">{{ dist }} (host)</h4>
+        <div class="btn-group pull-right" style="margin-top: 10px;margin-bottom: 0px;">
+          {% if session.su == 'Yes' %}
+            <a class="btn btn-link md-action" data-toggle="modal" data-target="#reboot"><i class="fa fa-refresh"></i></a>
+            {% if containers != [] %}
+              <a class="btn btn-link md-action" data-toggle="modal" data-target="#cloneCT"> <i class="fa fa-clone"></i></a>
+            {% endif %}
+            <a class="btn btn-link md-action" data-toggle="modal" data-target="#createCT"><i class="fa fa-plus"></i></a>
           {% endif %}
-          <a class="btn btn-link md-action" data-toggle="modal" data-target="#createCT"><i class="fa fa-plus"></i></a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <!-- <div class="panel-heading">
-      <h3 class="panel-title">Panel title</h3>
-    </div> -->
-    <div class="panel-body">
-      {% if dist == 'Unknown' %}<div class="alert alert-error">LXC Web Panel is optimized for Ubuntu 12.10 !</div>{% endif %}
-      <div class="col-md-6 col-sm-6">
-        <p>CPU usage : <span id="cpu-usage" class="hide"></span></p>
-        <div class="progress">
-          <div class="progress-bar" id="cpu-usage-bar" style="width:0%;"></div>
-        </div>
-        <p>Memory usage : <span id="memory-usage" class="hide"></span></p>
-        <div class="progress">
-          <div class="progress-bar" id="memory-usage-bar" style="width: 0%;"></div>
-          <abbr title="Cached memory"><div class="bar bar-success" id="memory-cache-usage-bar" style="width: 0%;"></div></abbr>
         </div>
       </div>
-      <div class="col-md-6 col-sm-6">
-        <p>Disk usage : <span id="disk-usage" class="hide"></span></p>
-        <div class="progress">
-          <div class="progress-bar" id="disk-usage-bar" style="width: 0%;"></div>
+      <div class="panel panel-default">
+        <!-- <div class="panel-heading">
+          <h3 class="panel-title">Panel title</h3>
+        </div> -->
+        <div class="panel-body">
+          {% if dist == 'Unknown' %}<div class="alert alert-error">LXC Web Panel is optimized for Ubuntu 12.10 !</div>{% endif %}
+          <div class="col-md-6 col-sm-6">
+            <p>CPU usage : <span id="cpu-usage" class="hide"></span></p>
+            <div class="progress">
+              <div class="progress-bar" id="cpu-usage-bar" style="width:0%;"></div>
+            </div>
+            <p>Memory usage : <span id="memory-usage" class="hide"></span></p>
+            <div class="progress">
+              <div class="progress-bar" id="memory-usage-bar" style="width: 0%;"></div>
+              <abbr title="Cached memory"><div class="bar bar-success" id="memory-cache-usage-bar" style="width: 0%;"></div></abbr>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <p>Disk usage : <span id="disk-usage" class="hide"></span></p>
+            <div class="progress">
+              <div class="progress-bar" id="disk-usage-bar" style="width: 0%;"></div>
+            </div>
+            <p>Uptime : <span id="uptime" class="hide"></span></p>
+          </div>
+          <a href="http://lxc-webpanel.github.io/" target="_blank"><span class="label label-info hide" id="version" style="position:relative; float:right; bottom:0; margin:-20px -23px 0 0;"><i class="icon-info-sign icon-white"></i> New version is out ! (<span id="vernumber"></span>)</span></a>
         </div>
-        <p>Uptime : <span id="uptime" class="hide"></span></p>
       </div>
-      <a href="http://lxc-webpanel.github.io/" target="_blank"><span class="label label-info hide" id="version" style="position:relative; float:right; bottom:0; margin:-20px -23px 0 0;"><i class="icon-info-sign icon-white"></i> New version is out ! (<span id="vernumber"></span>)</span></a>
-    </div>
-  </div>
 
-  <div class="panel panel-default">
-    <!-- <div class="panel-heading">
-      <h3 class="panel-title">Containers</h3>
-    </div> -->
-    <table class="table table-material">
-      <thead>
-        <tr>
-          <th>Status</th>
-          <th>Name</th>
-          <th>Hostname</th>
-          <th>IP Address</th>
-          <th>Mem. usage</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for status in containers_all %}
-          {% for container in status.containers %}
-            <tr class="{{ tr[status.status] }}">
-              <td><span class="label label-{{ td[status.status] }}">{{ status.status|capitalize }}</span></td>
-              <td class="text-left"><a href="{{ url_for('edit',container=container.name) }}" title="Click to edit {{container.name}}">{{container.name}}</a></td>
-              <td>{{container.settings.utsname}}</td>
-              <td>{% if container.settings.flags == 'up' %}{% if container.settings.ipv4 != '' %}{{container.settings.ipv4}}{% else %}Undefined{% endif %}{% elif container.settings.flags == 'down' %}Link Down{% endif %}</td>
-              <td id="{{container.name}}">{{ render_memory_wrapper(container.memusg) }}</td>
-              <td>
-                {% set start_action = {'stopped':'start','frozen':'unfreeze'} %}
-                <a class="btn btn-link btn-action{% if status.status == 'running' %} disabled{% endif %}"{% if status.status == 'stopped' or status.status == 'frozen' %} href="{{ url_for('action', name=container.name, action=start_action[status.status], token=session.token) }}"{% endif %}><i class="fa fa-play-circle-o"></i></a>
-                <a class="btn btn-link btn-action{% if status.status == 'stopped' %} disabled{% endif %}"{% if status.status == 'running' or status.status == 'frozen' %} href="{{ url_for('action', name=container.name, action='stop', token=session.token) }}"{% endif %}><i class="fa fa-stop-circle-o"></i></a>
-                <a class="btn btn-link btn-action{% if status.status == 'frozen' or status.status == 'stopped' %} disabled{% endif %}"{% if status.status == 'running' %} href="{{ url_for('action', name=container.name, action='freeze', token=session.token) }}"{% endif %}><i class="fa fa-pause-circle-o"></i></a>
-                {% if session.su == 'Yes' %}<a class="destroy btn btn-link btn-action" data-container-name="{{container.name}}"><i class="fa fa-ban"></i></a>{% endif %}
-              </td>
+      <div class="panel panel-default">
+        <!-- <div class="panel-heading">
+          <h3 class="panel-title">Containers</h3>
+        </div> -->
+        <table class="table table-material">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Hostname</th>
+              <th>IP Address</th>
+              <th>Mem. usage</th>
+              <th>Actions</th>
             </tr>
-          {% endfor %}
-        {% endfor %}
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            {% for status in containers_all %}
+              {% for container in status.containers %}
+                <tr class="{{ tr[status.status] }}">
+                  <td><span class="label label-{{ td[status.status] }}">{{ status.status|capitalize }}</span></td>
+                  <td class="text-left"><a href="{{ url_for('edit',container=container.name) }}" title="Click to edit {{container.name}}">{{container.name}}</a></td>
+                  <td>{{container.settings.utsname}}</td>
+                  <td>{% if container.settings.flags == 'up' %}{% if container.settings.ipv4 != '' %}{{container.settings.ipv4}}{% else %}Undefined{% endif %}{% elif container.settings.flags == 'down' %}Link Down{% endif %}</td>
+                  <td id="{{container.name}}">{{ render_memory_wrapper(container.memusg) }}</td>
+                  <td>
+                    {% set start_action = {'stopped':'start','frozen':'unfreeze'} %}
+                    <a class="btn btn-link btn-action{% if status.status == 'running' %} disabled{% endif %}"{% if status.status == 'stopped' or status.status == 'frozen' %} href="{{ url_for('action', name=container.name, action=start_action[status.status], token=session.token) }}"{% endif %}><i class="fa fa-play-circle-o"></i></a>
+                    <a class="btn btn-link btn-action{% if status.status == 'stopped' %} disabled{% endif %}"{% if status.status == 'running' or status.status == 'frozen' %} href="{{ url_for('action', name=container.name, action='stop', token=session.token) }}"{% endif %}><i class="fa fa-stop-circle-o"></i></a>
+                    <a class="btn btn-link btn-action{% if status.status == 'frozen' or status.status == 'stopped' %} disabled{% endif %}"{% if status.status == 'running' %} href="{{ url_for('action', name=container.name, action='freeze', token=session.token) }}"{% endif %}><i class="fa fa-pause-circle-o"></i></a>
+                    {% if session.su == 'Yes' %}<a class="destroy btn btn-link btn-action" data-container-name="{{container.name}}"><i class="fa fa-ban"></i></a>{% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
+
 {% if session.su == 'Yes' %}
   {% include "includes/modal_reboot.html" %}
   {% include "includes/modal_create.html" %}

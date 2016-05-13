@@ -1,36 +1,64 @@
 {% extends "layout.html" %}
 {% block title %}Config{% endblock %}
 {% block content %}
-{% if cfg %}
-	<div class="col-md-6">
-		{{ super() }}
-		<table class="table table-hover table-bordered">
-			<tbody>
-				{% for i in cfg %}{% if i.split(':')[1] == 'enabled' or i.split(':')[1] == 'missing' or i.split(':')[1] == 'required' or '---' in i %}<tr class="{% if i.split(':')[1] == 'enabled' %}success{% elif i.split(':')[1] == 'missing' %}warning{% elif i.split(':')[1] == 'required' %}error{% endif %}">
-					<td>{% if '---' in i %}<strong>{{ i.split(':')[0] }}</strong>{% else %}{{ i.split(':')[0] }}{% endif %}</td>
-					<td width="15px"><i class="{% if i.split(':')[1] == 'enabled' %}fa fa-check{% elif i.split(':')[1] == 'missing' %}fa fa-exclamation{% elif i.split(':')[1] == 'required' %}fa fa-remove{% endif %}"></i></td>
-				</tr>{% endif %}{% endfor %}
-			</tbody>
-		</table>
-	</div>
+  <div class="col-md-10 col-md-offset-2">
+    <div class="row">
 
-	<div class="col-md-2">
-		<div class="well">
-			<ul class="nav nav-list">
-				<li class="text-success"><i class="fa fa-check"></i> Enabled</li>
-				<li class="text-warning"><i class=" fa fa-exclamation"></i> Missing</li>
-				<li class="text-error"><i class="fa fa-remove"></i> Required</li>
-			</ul>
-		</div>
-	</div>
+      <div class="col-md-12" style="background-color: #E0E0E0; height: 72px;">
+        <ol class="breadcrumb breadcrumb-md">
+          <li><a href="{{ url_for('home') }}">Overview</a></li>
+          <li class="active">System</li>
+        </ol>
+      </div>
 
-{% else %}
-	<div class="alert alert-error alert-block dont-hide col-md-6" id="alert">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<h4>Error!</h4>
-		<p><strong>Install kernel headers and try again...</strong><small class="pull-right"><code>apt-get install linux-headers-$(uname -r)</code></small></p>
-	</div>
-{% endif %}
+      <div class="col-md-12">
+        {{ super() }}
+      </div>
+      {% if cfg %}
+        <div class="col-md-8 col-md-offset-1">
+          <div class="page-header page-header-md">
+            <h4>System Check</h4>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <ul class="list-inline">
+                <li class="text-success"><i class="fa fa-check"></i> Enabled</li>
+                <li class="text-warning"><i class=" fa fa-exclamation"></i> Missing</li>
+                <li class="text-danger"><i class="fa fa-remove"></i> Required</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <table class="table table-material">
+              <tbody>
+                {% for i in cfg %}
+                  {% if i.split(':')[1] == 'enabled' or i.split(':')[1] == 'missing' or i.split(':')[1] == 'required' or '---' in i %}
+                    <tr>
+                      <td>
+                        {% if '---' in i %}
+                          <strong>{{ i.split(':')[0] }}</strong>
+                        {% else %}
+                          {{ i.split(':')[0] }}
+                        {% endif %}
+                      </td>
+                      <td width="15px"><i class="{% if i.split(':')[1] == 'enabled' %}text-success fa fa-check{% elif i.split(':')[1] == 'missing' %}text-warning fa fa-exclamation{% elif i.split(':')[1] == 'required' %}text-danger fa fa-remove{% endif %}"></i></td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-md-12">
+          <div class="alert alert-error alert-block dont-hide" id="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Error!</h4>
+            <p><strong>Install kernel headers and try again...</strong><small class="pull-right"><code>apt-get install linux-headers-$(uname -r)</code></small></p>
+          </div>
+        </div>
+      {% endif %}
 
-
+    </div>
+  </div>
 {% endblock %}

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+    <link href="{{ url_for('static', filename='css/override.css') }}" rel="stylesheet">
 
     <link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/shadow.css') }}" rel="stylesheet">
@@ -23,24 +24,6 @@
     <link href="{{ url_for('static', filename='css/typo.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/page-header.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/panel.css') }}" rel="stylesheet">
-
-    <style type="text/css">
-      body { padding-top: 64px; background-color: #fafafa; font-family: 'Roboto', sans-serif;}
-      html {
-        height: 100%;
-      }
-      body {
-        min-height: 100%;
-      }
-      h3.head {margin: 0;}
-      .sidebar-nav {padding: 9px 0;}
-      .hero-unit{padding: 5px 30px;}
-      .help-block ul{margin:0 0 -10px 0;}
-      .help-block li{list-style-type:none;}
-      .btn-action {color: rgba(0,0,0,0.54);}
-      .fix-height {line-height: 30px; min-height: 30px; height: 30px;}
-}
-    </style>
 
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
