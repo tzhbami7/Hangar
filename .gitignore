@@ -3,3 +3,4 @@ __pycache__
 /cookbooks
 .vagrant
 tmp/
+lwp.db
