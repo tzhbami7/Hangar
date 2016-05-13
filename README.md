@@ -1,6 +1,6 @@
-LXC-Web-Panel
+Hangar
 =============
 
-LXC Web Panel repository
+Hangar is a Web Interface for LXC Containers
 
-## Visit http://lxc-webpanel.github.io/ for more informations
+More information about this project will be released soon.
