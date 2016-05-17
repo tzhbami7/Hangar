@@ -358,7 +358,7 @@ def get_container_settings(name):
     return cfg
 
 
-def push_net_value(key, value, filename='/etc/default/lxc'):
+def push_net_value(key, value, filename='/etc/default/lxc-net'):
     '''
     replace a var in the lxc-net config file
     '''
