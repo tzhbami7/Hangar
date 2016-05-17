@@ -34,6 +34,7 @@ import re
 import hashlib
 import sqlite3
 import os
+import logging
 
 from flask import Flask, request, session, g, redirect, url_for, abort, \
     render_template, flash, jsonify
@@ -107,7 +108,8 @@ def home():
                 containers_by_status.append({
                     'name': container,
                     'memusg': lwp.memory_usage(container),
-                    'settings': lwp.get_container_settings(container)
+                    'settings': lwp.get_container_settings(container),
+                    'ip': lxc.info(container)['ip']
                 })
             containers_all.append({
                 'status': status.lower(),
@@ -304,10 +306,12 @@ def edit(container=None):
         info = lxc.info(container)
         status = info['state']
         pid = info['pid']
+        ip = info['ip']
 
         infos = {'status': status,
                  'pid': pid,
-                 'memusg': lwp.memory_usage(container)}
+                 'memusg': lwp.memory_usage(container),
+                 'ip': ip}
         return render_template('edit.html', containers=lxc.ls(),
                                container=container, infos=infos,
                                settings=lwp.get_container_settings(container),
@@ -374,8 +378,7 @@ def lxc_net():
                 elif form['use'] == 'false' and form['use'] != cfg['use']:
                     lwp.push_net_value('USE_LXC_BRIDGE', 'false')
 
-                if form['bridge'] and form['bridge'] != cfg['bridge'] \
-                        and re.match('^[a-zA-Z0-9_-]+$', form['bridge']):
+                if form['bridge'] and form['bridge'] != cfg['bridge'] and re.match('^[a-zA-Z0-9_-]+$', form['bridge']):
                     lwp.push_net_value('LXC_BRIDGE', form['bridge'])
 
                 if form['address'] and form['address'] != cfg['address'] \

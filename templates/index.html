@@ -80,7 +80,9 @@
                   <td><span class="label label-{{ td[status.status] }}">{{ status.status|capitalize }}</span></td>
                   <td class="text-left"><a href="{{ url_for('edit',container=container.name) }}" title="Click to edit {{container.name}}">{{container.name}}</a></td>
                   <td>{{container.settings.utsname}}</td>
-                  <td>{% if container.settings.flags == 'up' %}{% if container.settings.ipv4 != '' %}{{container.settings.ipv4}}{% else %}Undefined{% endif %}{% elif container.settings.flags == 'down' %}Link Down{% endif %}</td>
+                  <td>
+                    {{container.ip}}
+                  </td>
                   <td id="{{container.name}}">{{ render_memory_wrapper(container.memusg) }}</td>
                   <td>
                     {% set start_action = {'stopped':'start','frozen':'unfreeze'} %}

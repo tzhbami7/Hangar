@@ -118,12 +118,12 @@ def info(container):
     '''
     Check info from lxc-info
     '''
-
+    # TODO: THIS IS SO ULTRA UGLY - FIX THAT
     if not exists(container):
         raise ContainerDoesntExists(
             'Container {} does not exist!'.format(container))
 
-    output = _run('lxc-info -qn {}|grep -i "State\|PID"'.format(container),
+    output = _run('lxc-info -qn {}|grep -i "State\|PID\|IP"'.format(container),
                   output=True).splitlines()
 
     state = output[0].split()[1]
@@ -133,8 +133,13 @@ def info(container):
     else:
         pid = output[1].split()[1]
 
+    if len(output) == 3:
+        ip = output[2].split()[1]
+    else:
+        ip = ''
+
     return {'state': state,
-            'pid': pid}
+            'pid': pid, 'ip': ip}
 
 
 def ls():
