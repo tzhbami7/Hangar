@@ -81,7 +81,9 @@
                   <td class="text-left"><a href="{{ url_for('edit',container=container.name) }}" title="Click to edit {{container.name}}">{{container.name}}</a></td>
                   <td>{{container.settings.utsname}}</td>
                   <td>
-                    {{container.ip}}
+                    {% if container.ip != '' %}
+                      <a href="{{ url_for('lxc_ssh',container=container.name) }}" title="Click to ssh {{container.name}}">{{container.ip}}</a>
+                    {% endif %}
                   </td>
                   <td id="{{container.name}}">{{ render_memory_wrapper(container.memusg) }}</td>
                   <td>

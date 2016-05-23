@@ -134,6 +134,18 @@ def about():
                                version=lwp.check_version())
     return render_template('login.html')
 
+@app.route('/<container>/lxc-ssh', methods=['GET'])
+def lxc_ssh(container=None):
+    '''
+    connects to ssh via web
+    '''
+    if 'logged_in' in session:
+        info = lxc.info(container)
+        ip = info['ip']
+        return render_template('lxc-ssh.html', container=container, ip=ip)
+
+    return render_template('login.html')
+
 
 @app.route('/<container>/edit', methods=['POST', 'GET'])
 def edit(container=None):
