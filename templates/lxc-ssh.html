@@ -192,10 +192,10 @@ or the fragment:
         document.title = unescape(WebUtil.getConfigVar('title', 'noVNC'));
         // By default, use the host and port of server that served this file
         // host = WebUtil.getConfigVar('host', window.location.hostname);
-        host = WebUtil.getConfigVar('host', "192.168.1.14");
+        host = WebUtil.getConfigVar('host', "localhost");
         console.log("{{ip}}");
         // port = WebUtil.getConfigVar('port', window.location.port);
-        port = WebUtil.getConfigVar('port', 16509);
+        port = WebUtil.getConfigVar('port', 5800);
 
         // if port == 80 (or 443) then it won't be present and should be
         // set manually
@@ -210,7 +210,8 @@ or the fragment:
 
         password = WebUtil.getConfigVar('password', '');
         path = WebUtil.getConfigVar('path', 'websockify');
-
+        // path = ''
+        console.log("a: " + path);
         // If a token variable is passed in, set the parameter in a cookie.
         // This is used by nova-novncproxy.
         token = WebUtil.getConfigVar('token', null);
@@ -229,16 +230,13 @@ or the fragment:
 
         try {
             rfb = new RFB({'target':       $D('noVNC_canvas'),
-                           'encrypt':      WebUtil.getConfigVar('encrypt',
-                                    (window.location.protocol === "https:")),
-                           'repeaterID':   WebUtil.getConfigVar('repeaterID', ''),
-                           'true_color':   WebUtil.getConfigVar('true_color', true),
-                           'local_cursor': WebUtil.getConfigVar('cursor', true),
-                           'shared':       WebUtil.getConfigVar('shared', true),
-                           'view_only':    WebUtil.getConfigVar('view_only', false),
+                           'encrypt':      false,
+                           'true_color':   true,
+                           'local_cursor': true,
+                           'shared':       true,
+                           'view_only':    false,
                            'onUpdateState':  updateState,
                            'onXvpInit':    xvpInit,
-                           'onPasswordRequired':  passwordRequired,
                            'onFBUComplete': FBUComplete});
         } catch (exc) {
             updateState(null, 'fatal', null, 'Unable to create RFB client -- ' + exc);
