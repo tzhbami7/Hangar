@@ -23,6 +23,7 @@ Vagrant.configure(2) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 5000, host: 5000
+  config.vm.network "forwarded_port", guest: 5800, host: 5800
   # config.vm.network "forwarded_port", guest: 443, host: 443
 
   # Create a private network, which allows host-only access to the machine
@@ -58,7 +59,7 @@ Vagrant.configure(2) do |config|
     vb.memory = "2048"
 
     vb.customize ["modifyvm", :id, "--pae", "on"]
-    vb.customize ["modifyvm", :id, "--paravirtprovider", "legacy"]
+    vb.customize ["modifyvm", :id, "--paravirtprovider", "kvm"]
   end
 
   # View the documentation for the provider you are using for more
