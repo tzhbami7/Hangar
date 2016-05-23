@@ -1,0 +1,28 @@
+<domain type='lxc'>
+  <name>mega-box</name>
+  <memory>2000</memory>
+  <os>
+    <type>exe</type>
+    <init>/sbin/init</init>
+  </os>
+  <vcpu>1</vcpu>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/lib/libvirt/libvirt_lxc</emulator>
+    <video/>
+    <graphics type='vnc' port='5900' autoport='no' websocket='5800' listen='0.0.0.0'>
+      <listen type='address' address='0.0.0.0'/>
+    </graphics>
+    <filesystem type='mount'>
+      <source dir='/var/lib/lxc/mega-box/rootfs'/>
+      <target dir='/'/>
+    </filesystem>
+    <interface type='network'>
+      <source network='default'/>
+    </interface>
+    <console type='pty' />
+  </devices>
+</domain>
